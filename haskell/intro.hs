@@ -15,13 +15,13 @@ fatorial :: Int -> Int
 fatorial x | x == 0 || x == 1 = 1
            | otherwise = x * (fatorial (x - 1))
 
-getFactors :: Int -> Int -> [Int]
-getFactors n f | n == f = [n]
-               | mod n f == 0 = [f] ++ getFactors n (f + 1)
-               | otherwise = getFactors n (f + 1)
+getDividers :: Int -> Int -> [Int]
+getDividers num divider | num == divider = [num]
+                        | mod num divider == 0 = [divider] ++ getDividers num (divider + 1)
+                        | otherwise = getDividers num (divider + 1)
 
 isPrime :: Int -> Bool
-isPrime x = (length (getFactors x 1)) == 2
+isPrime x = (length (getDividers x 1)) == 2
 
 mdc :: Int -> Int -> Int
 mdc x y | y == 0 = x
