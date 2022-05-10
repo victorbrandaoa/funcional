@@ -7,9 +7,14 @@ impl a b = (not a) || b
 equiv :: Bool -> Bool -> Bool
 equiv a b = ((not a) || b) && (a || (not b))
 
-pow :: Int -> Int -> Int
-pow x y | y == 0 = 1
-        | otherwise = x * (pow x (y - 1))
+-- auxPow :: Int -> Int -> (f -> f) -> (f -> f) -> Int
+-- auxPow x y powOperator stepOperator | y == 0 = 1
+--                                     | otherwise = x powOperator (auxPow x (y stepOperator 1))
+
+-- pow :: Int -> Int -> Int
+-- pow x y | y == 0 = 1
+--         | y < 0 = auxPow (div) (+) x y
+--         | otherwise = x * (pow x (y - 1))
 
 fatorial :: Int -> Int
 fatorial x | x == 0 || x == 1 = 1
@@ -51,17 +56,17 @@ myDrop k (x:xs) | k == 1 = xs
 
 myMaximum :: (Ord a) => [a] -> a
 myMaximum (x:xs) | xs == [] = x
-                 | x >= n = x
-                 | otherwise = n
+                 | x >= maxTail = x
+                 | otherwise = maxTail
                  where
-                   n = myMaximum xs
+                   maxTail = myMaximum xs
 
 myMinimum :: (Ord a) => [a] -> a
 myMinimum (x:xs) | xs == [] = x
-                 | x <= n = x
-                 | otherwise = n
+                 | x <= minTail = x
+                 | otherwise = minTail
                  where
-                   n = myMinimum xs
+                   minTail = myMinimum xs
 
 mySum :: (Eq a, Num a) => [a] -> a
 mySum (x:xs) | xs == [] = x
@@ -79,3 +84,18 @@ myRange :: (Eq a, Ord a, Enum a) => a -> a -> [a]
 myRange start end | start > end = []
                   | start == end = [start]
                   | otherwise = [start] ++ myRange (succ start) end
+
+myRangeStep :: (Eq a, Ord a, Enum a, Num a) => a -> a -> a -> [a]
+myRangeStep start step end | start > end = []
+                           | start == end = [start]
+                           | otherwise = [start] ++ myRangeStep (start + step) step end
+
+myCycle :: [a] -> [a]
+myCycle xs = xs ++ myCycle xs
+
+myRepeat :: a -> [a]
+myRepeat x = [x] ++ myRepeat x
+
+myReplicate :: Int -> a -> [a]
+myReplicate 0 _ = []
+myReplicate k elem = [elem] ++ myReplicate (k - 1) elem
