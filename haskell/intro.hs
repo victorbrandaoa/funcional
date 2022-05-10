@@ -9,7 +9,6 @@ equiv a b = ((not a) || b) && (a || (not b))
 
 pow :: Int -> Int -> Int
 pow x y | y == 0 = 1
-        | y == 1 = x
         | otherwise = x * (pow x (y - 1))
 
 fatorial :: Int -> Int
