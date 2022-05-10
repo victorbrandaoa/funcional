@@ -7,9 +7,12 @@ impl a b = (not a) || b
 equiv :: Bool -> Bool -> Bool
 equiv a b = ((not a) || b) && (a || (not b))
 
--- auxPow :: Int -> Int -> (f -> f) -> (f -> f) -> Int
+-- auxPow :: (Num a) => a -> a -> (f -> f) -> (f -> f) -> a
 -- auxPow x y powOperator stepOperator | y == 0 = 1
---                                     | otherwise = x powOperator (auxPow x (y stepOperator 1))
+--                                     | otherwise = x powOperator (auxPow x (y stepOperator 1) (powOperator) (stepOperator))
+
+auxPow :: (Num f) => Int -> Int -> (f -> f) -> (f -> f) -> Int
+auxPow x y powOperator stepOperator = 0
 
 -- pow :: Int -> Int -> Int
 -- pow x y | y == 0 = 1
