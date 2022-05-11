@@ -7,17 +7,16 @@ impl a b = (not a) || b
 equiv :: Bool -> Bool -> Bool
 equiv a b = ((not a) || b) && (a || (not b))
 
--- auxPow :: (Num a) => a -> a -> (f -> f) -> (f -> f) -> a
--- auxPow x y powOperator stepOperator | y == 0 = 1
---                                     | otherwise = x powOperator (auxPow x (y stepOperator 1) (powOperator) (stepOperator))
+positivePow :: (Num a, Eq a) => a -> a -> a
+positivePow x y | y == 0 = 1
+                | otherwise = x * (positivePow x (y - 1))
 
-auxPow :: (Num f) => Int -> Int -> (f -> f) -> (f -> f) -> Int
-auxPow x y powOperator stepOperator = 0
+negativePow :: (Num a, Eq a, Fractional a) => a -> a -> a
+negativePow x y = x / (positivePow x ((abs y) + 1))
 
--- pow :: Int -> Int -> Int
--- pow x y | y == 0 = 1
---         | y < 0 = auxPow (div) (+) x y
---         | otherwise = x * (pow x (y - 1))
+pow :: (Num a, Eq a, Ord a, Fractional a) => a -> a -> a
+pow x y | y < 0 = negativePow x y
+        | otherwise = positivePow x y
 
 fatorial :: Int -> Int
 fatorial x | x == 0 || x == 1 = 1
