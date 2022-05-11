@@ -7,16 +7,15 @@ impl a b = (not a) || b
 equiv :: Bool -> Bool -> Bool
 equiv a b = ((not a) || b) && (a || (not b))
 
-positivePow :: (Num a, Eq a) => a -> a -> a
-positivePow x y | y == 0 = 1
-                | otherwise = x * (positivePow x (y - 1))
-
-negativePow :: (Num a, Eq a, Fractional a) => a -> a -> a
-negativePow x y = x / (positivePow x ((abs y) + 1))
+fib :: Int -> Int
+fib 0 = 0
+fib 1 = 1
+fib n = (fib (n - 1)) + (fib (n - 2))
 
 pow :: (Num a, Eq a, Ord a, Fractional a) => a -> a -> a
-pow x y | y < 0 = negativePow x y
-        | otherwise = positivePow x y
+pow x 0 = 1
+pow x y | y < 0 = x / (pow x ((abs y) + 1))
+         | otherwise = x * (pow x (y - 1))
 
 fatorial :: Int -> Int
 fatorial x | x == 0 || x == 1 = 1
