@@ -15,7 +15,7 @@ fib n = (fib (n - 1)) + (fib (n - 2))
 pow :: (Num a, Eq a, Ord a, Fractional a) => a -> a -> a
 pow x 0 = 1
 pow x y | y < 0 = x / (pow x ((abs y) + 1))
-         | otherwise = x * (pow x (y - 1))
+        | otherwise = x * (pow x (y - 1))
 
 fatorial :: Int -> Int
 fatorial x | x == 0 || x == 1 = 1
