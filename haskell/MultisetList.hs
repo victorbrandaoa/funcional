@@ -43,7 +43,7 @@ minus bag1 bag2 = [elem | elem <- bag1, not (contains (getKey elem) bag2)] ++ (f
 
 sum' bag1 bag2 = (symmetricDiff bag1 bag2) ++ (intersectionBy bag1 bag2 (+))
 
-inclusion bag1 bag2 = undefined
+inclusion bag1 bag2 = [elem | elem <- bag1, (getFrequency elem) <= (search (getKey elem) bag2)] /= []
 
 size [] = 0
 size bag = getFrequency (head bag) + size (tail bag)
