@@ -28,11 +28,11 @@ intersection bag1 bag2 = Map.intersectionWith min bag1 bag2
 
 minus bag1 bag2 = union notInBag2 (Map.filter (> 0) diffBags)
                   where
-                    notInBag2 = difference bag1 bag2
+                    notInBag2 = Map.difference bag1 bag2
                     diffBags = Map.intersectionWith (-) bag1 bag2
 
 sum bag1 bag2 = Map.unionWith (+) bag1 bag2
 
-inclusion bag1 bag2 = undefined
+inclusion bag1 bag2 = [key | key <- Map.keys bag1, (bag1 Map.! key) <= (search key bag2)] /= []
 
-size bag = Map.fold (+) 0 bag
+size bag = Map.foldr (+) 0 bag
