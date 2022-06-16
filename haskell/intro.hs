@@ -12,6 +12,30 @@ fib 0 = 0
 fib 1 = 1
 fib n = (fib (n - 1)) + (fib (n - 2))
 
+fibOtimizado antepenultimo penultimo 0 = antepenultimo + penultimo
+fibOtimizado antepenultimo penultimo k = fibOtimizado penultimo proximo (k - 1)
+                                          where
+                                            proximo = antepenultimo + penultimo
+
+fib' 1 = 1
+fib' 2 = 1
+fib' k = fibOtimizado 1 1 (k - 3)
+
+eleHappenKTimes ele _ 0 = [ele]
+eleHappenKTimes _ [] k = []
+eleHappenKTimes ele (x:xs) k | ele == x = eleHappenKTimes ele xs (k - 1)
+                             | otherwise = eleHappenKTimes ele xs k
+
+remove' ele l = filter (/= ele) l
+
+-- remove' _ [] = []
+-- remove' ele (x:xs) | x == ele = remove' ele xs
+--                    | otherwise = [x] ++ remove' ele xs
+
+happenKTimes (x:xs) k = [ele] ++ happenKTimes (remove' x xs) k
+                        where
+                          ele = eleHappenKTimes x xs (k - 1)
+
 pow :: (Num a, Eq a, Ord a, Fractional a) => a -> a -> a
 pow x 0 = 1
 pow x y | y < 0 = x / (pow x ((abs y) + 1))

@@ -44,6 +44,20 @@ listFoldl f v (Cons x xs) = listFoldr f (f v x) xs
 
 data BinaryTree a = NIL | Node a (BinaryTree a) (BinaryTree a) deriving (Eq, Show)
 
+leaves (Node a NIL NIL) = [a]
+leaves (Node a left right) = leaves left ++ leaves right
+
+elementsAtLevel (Node a _ _) 0 = [a]
+elementsAtLevel (Node a left right) k = elementsAtLevel left (k - 1) ++ elementsAtLevel right (k - 1)
+
+mirror (Node a NIL NIL) = (Node a NIL NIL)
+mirror (Node a left right) = (Node a (mirror right) (mirror left))
+
+mapTree _ NIL = NIL
+mapTree f (Node a left right) = (Node (f a) (mapTree f left) (mapTree f right))
+
+deep ele (Node a left right) = undefined
+
 sizeBT NIL = 0
 sizeBT (Node a left right) = 1 + sizeBT left + sizeBT right
 
